@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :microposts, dependent: :destroy
   
   validates :name,  presence: true, length: { maximum: 50 }
 
@@ -9,5 +10,6 @@ class User < ApplicationRecord
                    
   before_save { self.email = email.downcase }              
   
-  validates :password, presence: true, length: { minimum: 3 }
+  validates :password, presence: true, length: { minimum: 3 }, allow_nil: true
 end
+
